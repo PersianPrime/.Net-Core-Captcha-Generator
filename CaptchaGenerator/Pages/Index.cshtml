@@ -1,0 +1,24 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<form method="post">
+    <input type="text" />
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <img id="img-captcha" src="~/get-captcha-image" />
+        </div>
+        <input type="text" class="form-control" placeholder="Captcha Code" asp-for=@Model.CaptchaCode maxlength="4" />
+        <span asp-validation-for="CaptchaCode" class="text-danger"></span>
+        <input type="submit" />
+    </div>
+</form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
