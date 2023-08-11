@@ -5,7 +5,7 @@ using System.Text;
 
 public static class Captcha
 {
-    const string Letters = "2346789ABCDEFGHJKLMNPRTUVWXYZ";
+    const string Letters = "2346789";
 
     public static string GenerateCaptchaCode()
     {
@@ -95,7 +95,7 @@ public static class Captcha
 
             void DrawDisorderLine()
             {
-                Pen linePen = new Pen(new SolidBrush(Color.Black), 3);
+                Pen linePen = new Pen(new SolidBrush(Color.Black), 2);
                 for (int i = 0; i < rand.Next(3, 5); i++)
                 {
                     linePen.Color = GetRandomDeepColor();
@@ -113,7 +113,7 @@ public static class Captcha
 
             void AdjustRippleEffect()
             {
-                short nWave = 6;
+                short nWave =3;
                 int nWidth = baseMap.Width;
                 int nHeight = baseMap.Height;
 

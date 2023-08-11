@@ -11,14 +11,39 @@
 <form method="post">
     <input type="text" />
     <div class="input-group">
-        <div class="input-group-prepend">
-            <img id="img-captcha" src="~/get-captcha-image" />
+        <div class="border">
+            <img id="img-captcha" class="border" src="/get-captcha-image" />
+            <button type="button" id="btn-refresh-captcha" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+               کد جدید
+            </button>
         </div>
         <input type="text" class="form-control" placeholder="Captcha Code" asp-for=@Model.CaptchaCode maxlength="4" />
         <span asp-validation-for="CaptchaCode" class="text-danger"></span>
         <input type="submit" />
     </div>
 </form>
+<br/>
+
+
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $("#btn-refresh-captcha").click(function (e) {
+             console.log("ok");
+                $.ajax({
+                    type: "GET",
+                    url: "/captcha",
+                    //data: { "orderNumber": $("#shopOrderNumber").val() },
+                    success: function (response) {
+                        console.log(response);
+                        $("#img-captcha").attr('src', 'data:image/png;base64,' + response);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+    </script>
 }

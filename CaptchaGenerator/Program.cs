@@ -22,10 +22,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseAuthorization();
 // add session support
 app.UseSession();
 app.UseRouting();
+app.UseAuthorization();
+
 app.UseEndpoints(endpoints => {
     endpoints.MapRazorPages();
     endpoints.MapControllers();
