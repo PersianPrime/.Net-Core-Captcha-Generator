@@ -12,9 +12,9 @@
     <input type="text" />
     <div class="input-group">
         <div class="border">
-            <img id="img-captcha" class="border" src="/get-captcha-image" />
+            <img id="img-captcha" class="border" />
             <button type="button" id="btn-refresh-captcha" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-               کد جدید
+                کد جدید
             </button>
         </div>
         <input type="text" class="form-control" placeholder="Captcha Code" asp-for=@Model.CaptchaCode maxlength="4" />
@@ -22,28 +22,40 @@
         <input type="submit" />
     </div>
 </form>
-<br/>
+<br />
 
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
     <script>
+        Window.onload = loadCaptchaImage("img-captcha");
         $(document).ready(function () {
+
+
             $("#btn-refresh-captcha").click(function (e) {
-             console.log("ok");
-                $.ajax({
-                    type: "GET",
-                    url: "/captcha",
-                    //data: { "orderNumber": $("#shopOrderNumber").val() },
-                    success: function (response) {
-                        console.log(response);
-                        $("#img-captcha").attr('src', 'data:image/png;base64,' + response);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                });
+
+                loadCaptchaImage("img-captcha");
             });
         });
+       
+        function loadCaptchaImage(imageId)
+        {
+            $.ajax({
+                type: "GET",
+                url: "/get-captcha-image",
+                //data: { "orderNumber": $("#shopOrderNumber").val() },
+                success: function (response) {
+
+                    $("#"+imageId).attr('src', 'data:image/png;base64,' + response);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+       
+    
+    
+    
     </script>
 }
